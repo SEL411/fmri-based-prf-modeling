@@ -1,4 +1,4 @@
-# fMRI-based pRF Modeling
+# fMRI-based pRF Modeling Comparison
 
 This project explores population receptive field (pRF) estimation using fMRI BOLD data within a computational modeling framework.  
 The work was conducted during a research internship focused on model evaluation and parameter tuning.
