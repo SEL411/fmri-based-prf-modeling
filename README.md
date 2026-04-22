@@ -74,7 +74,30 @@ This comparison highlights a trade-off between interpretability and generalizati
 These results suggest that the choice of method depends on the goal of the analysis:
 - maximizing predictive accuracy  
 - interpretability of contributing features  
-- or robustness to new data  
+- or robustness to new data
+
+---
+
+## Conceptual Interpretation
+
+This analysis can be interpreted in terms of how different modeling assumptions relate to neural signal representation.
+
+The model-based approach assumes a predefined receptive field structure, typically Gaussian, and directly fits parameters describing spatial selectivity.  
+This allows strong predictive performance, but depends on the validity of the assumed model.
+
+In contrast, regression-based approaches do not explicitly assume a receptive field shape:
+
+- **Lasso (L1)** enforces sparsity, effectively selecting a small number of stimulus channels.  
+  This may approximate a localized receptive field, but can be unstable when the underlying signal is distributed.
+
+- **Ridge (L2)** distributes weights across channels, which may better reflect the distributed nature of population-level neural responses in fMRI data.  
+  This leads to more stable generalization across datasets.
+
+From this perspective, the comparison is not only between models, but between different assumptions about neural representation:
+- sparse vs distributed encoding  
+- explicit vs implicit receptive field modeling  
+
+This highlights that model choice in pRF estimation is closely tied to assumptions about how neural activity is organized and represented.
 
 ---
 
