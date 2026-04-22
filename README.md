@@ -89,7 +89,7 @@ These results suggest that the choice of method depends on the goal of the analy
 
 ## Files
 
-- `prf_modeling_analysis.m`  
+- `prf_parameter_setting.m`  
   MATLAB script for regression-based pRF estimation and evaluation  
 
 ---
