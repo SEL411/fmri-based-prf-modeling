@@ -27,7 +27,7 @@ pRF parameters were estimated from voxel-level fMRI BOLD time-series data using 
 
 For regression models:
 
-- Regularization parameters were manually set  
+- Regularization parameters were empirically tuned based on observed model behavior  
   - Lasso: λ = 0.01  
   - Ridge: λ = 10  
 
