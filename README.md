@@ -1,40 +1,43 @@
-# fMRI-based pRF Modeling Comparison
+# Evaluating Regularization in pRF Estimation from fMRI Data
 
-This project explores population receptive field (pRF) estimation using fMRI BOLD data within a computational modeling framework.  
-It was conducted during a research internship focusing on model evaluation and parameter tuning.
+This project examines how different modeling approaches affect population receptive field (pRF) estimation from fMRI BOLD time-series data.  
+The analysis focuses on comparing model-based estimation with regularized regression methods, with an emphasis on interpretability and generalization.
 
 ---
 
 ## Objective
 
-- Estimate pRF parameters from voxel-level fMRI time-series data  
-- Compare model-based and regression-based approaches  
-- Evaluate predictive performance on unseen (test) data  
+The goal of this study is to understand how L1 (Lasso) and L2 (Ridge) regularization influence pRF estimation compared to a standard model-based approach.
+
+Specifically, this project explores:
+
+- How predictive performance differs across methods  
+- How regularization affects overfitting and generalization  
+- The trade-off between signal interpretability and stability  
 
 ---
 
 ## Methods
 
-pRF parameters were estimated from fMRI BOLD time-series data using two approaches:
+pRF parameters were estimated from voxel-level fMRI BOLD time-series data using three approaches:
 
-- Model-based method (Dumoulin & Wandell, 2008)
-- Regression-based methods:
-  - Lasso (L1 regularization)
-  - Ridge (L2 regularization)
+- Model-based method (Dumoulin & Wandell, 2008)  
+- Lasso regression (L1 regularization)  
+- Ridge regression (L2 regularization)  
 
-Model performance was evaluated using R² on both training and test datasets to assess predictive accuracy and generalization.
+For regression models:
+
+- Regularization parameters were manually set  
+  - Lasso: λ = 0.01  
+  - Ridge: λ = 10  
+
+Model performance was evaluated using R² on both training and test datasets.
+
+---
 
 ## Results
 
-### pRF Model Comparison
-
-Three models were evaluated using both training and test datasets:
-
-- Model-based  
-- Lasso (L1 regularization)  
-- Ridge (L2 regularization)  
-
-#### Performance (R²)
+### Model Performance (R²)
 
 | Model       | Training R² | Test R² | Gap (Train - Test) |
 |-------------|-------------|---------|--------------------|
@@ -42,45 +45,56 @@ Three models were evaluated using both training and test datasets:
 | Lasso       | 0.504       | 0.380   | 0.124              |
 | Ridge       | 0.402       | 0.362   | 0.040              |
 
-#### Interpretation
+### Key Observations
 
-**Test dataset**
-
-- The model-based approach achieved the highest predictive accuracy.
-- Lasso produced predictions most similar in shape to the observed BOLD signal.
+- The model-based approach achieved the highest predictive accuracy on the test set.  
+- Lasso produced predictions that more closely matched the shape of the observed BOLD signal.  
 - Ridge showed smoother responses with reduced amplitude.
 
-**Training vs. Test comparison**
+### Generalization
 
-- Lasso showed the largest performance gap, indicating potential overfitting.
-- Ridge demonstrated a smaller gap, suggesting more stable generalization.
+- Lasso exhibited the largest train–test gap, suggesting sensitivity to training data and potential overfitting.  
+- Ridge showed a smaller gap, indicating more stable generalization across datasets.
 
-#### Conclusion
+---
 
-- Model-based → best predictive accuracy (test set)  
-- Lasso → better interpretability but higher risk of overfitting  
-- Ridge → more stable generalization across datasets 
+## Discussion
+
+This comparison highlights a trade-off between interpretability and generalization in pRF estimation:
+
+- **Lasso (L1)** enforces sparsity, which may help identify dominant channels contributing to the signal.  
+  However, this sparsity may also lead to overfitting when the underlying neural response is not strictly sparse.
+
+- **Ridge (L2)** distributes weights more smoothly, which may better reflect distributed neural activity,  
+  resulting in more stable generalization.
+
+- **Model-based approaches** provide the strongest predictive accuracy, but rely on predefined assumptions  
+  about the shape of the receptive field.
+
+These results suggest that the choice of method depends on the goal of the analysis:
+- maximizing predictive accuracy  
+- interpretability of contributing features  
+- or robustness to new data  
 
 ---
 
 ## My Contribution
 
-- Set regularization hyperparameters (λ) for Lasso and Ridge models  
-- Evaluated model performance using R² on both training and test datasets  
-- Analyzed trade-offs between interpretability (Lasso) and generalization (Ridge)  
-- Performed both quantitative evaluation and qualitative comparison with observed BOLD signals    
+- Implemented and compared Lasso and Ridge regression within a pRF modeling framework  
+- Selected regularization parameters (λ) and evaluated their impact on model performance  
+- Assessed generalization using train–test R² comparison  
+- Interpreted model behavior in terms of overfitting, sparsity, and signal representation  
 
 ---
 
 ## Files
 
 - `prf_modeling_analysis.m`  
-  Script for configuring regularization parameters (Lasso, Ridge) within the pRF framework  
+  MATLAB script for regression-based pRF estimation and evaluation  
 
 ---
 
 ## Notes
 
-- Core modeling framework was provided as part of a research internship  
-- Analysis, parameter tuning, and model evaluation were independently conducted  
-- Implemented in MATLAB using fMRI BOLD time-series data  
+- Core modeling framework and dataset were provided as part of a research internship  
+- Analysis, parameter selection, and interpretation were conducted independently  
